@@ -51,7 +51,8 @@ moewe().log.debug("this is a debug message");
 moewe().crash("an error occurred", null);
 
 // report user feedback
-showFeedbackPage(...)  // use package UI
+moewe().ui.showFeedbackDialog(); // using package UI
+moewe().feedback(...) // manually
 
 // get flag value from server
 moewe().config.flagString("fav_food");

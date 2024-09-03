@@ -1,6 +1,6 @@
 import { moewe } from "./moewe_base";
 
-type _EventData = { [key: string]: any };
+type _EventData = { [key: string]: any } | undefined;
 
 /**
  * this class allows you to send events to the moewe server

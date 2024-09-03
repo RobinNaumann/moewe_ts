@@ -1,4 +1,4 @@
-import { moewe, Moewe, showFeedbackDialog } from "moewe";
+import { moewe, Moewe } from "moewe";
 import { render } from "preact";
 import React from "preact/compat";
 import { useState } from "preact/hooks";
@@ -33,7 +33,9 @@ function _FeedbackBtn() {
     <button
       class="resource"
       onClick={() => {
-        showFeedbackDialog({});
+        moewe().ui.showFeedbackDialog();
+
+        //showFeedbackDialog({});
       }}
     >
       <h2>{"send feedback"}</h2>

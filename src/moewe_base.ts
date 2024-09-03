@@ -2,6 +2,7 @@ import type { AppConfig } from "./models";
 import { MoeweConfig } from "./moewe_config";
 import { MoeweEvents } from "./moewe_events";
 import { MoeweLogger } from "./moewe_logger";
+import { showFeedbackDialog } from "./ui/feedback/ui_feedback";
 
 export interface MoeweParams {
   host: string;
@@ -35,6 +36,9 @@ export class Moewe {
   public readonly config: MoeweConfig = new MoeweConfig();
   public readonly log: MoeweLogger = new MoeweLogger();
   public readonly events: MoeweEvents = new MoeweEvents();
+  public readonly ui = {
+    showFeedbackDialog,
+  };
 
   public readonly host: string;
   public readonly port: number;

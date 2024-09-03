@@ -10,18 +10,14 @@ import {
   type FeedbackViewType,
 } from "./m_feedback";
 
-export function showFeedbackDialog({
-  types,
-  labels,
-  theme,
-}: {
+export function showFeedbackDialog(p?: {
   types?: FeedbackViewType[];
   labels?: Partial<FeedbackViewLabels>;
   theme?: Partial<FeedbackViewTheme>;
 }) {
-  types = types ?? defaultFeedbackTypes;
-  labels = { ...defaultFeedbackLabels, ...(labels ?? {}) };
-  theme = { ...defaultFeedbackTheme, ...(theme ?? {}) };
+  const types = p?.types ?? defaultFeedbackTypes;
+  const labels = { ...defaultFeedbackLabels, ...(p?.labels ?? {}) };
+  const theme = { ...defaultFeedbackTheme, ...(p?.theme ?? {}) };
 
   const colorBack = theme.darkMode ? "#000" : "#fff";
   const colorOnBack = theme.darkMode ? "#fff" : "#000";

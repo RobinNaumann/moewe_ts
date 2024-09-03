@@ -54,7 +54,7 @@ export const feedbackCSS = `
 .moewe input[type="email"],
 .moewe input[type="number"],
 .moewe textarea {
-  // card
+  /* card*/
   padding: 1rem;
   border-width: 2px;
   border-style: solid;
@@ -70,7 +70,7 @@ export const feedbackCSS = `
 }
 
 .moewe select {
-  // card
+  /* card*/
   padding: 1rem;
   border-width: 2px;
   border-style: solid;
@@ -134,6 +134,7 @@ export const feedbackCSS = `
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
   border: none;
+  pointer-events: auto !important;
 }
 
 .moewe .dialog_base {
