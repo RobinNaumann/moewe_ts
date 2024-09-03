@@ -1,6 +1,10 @@
+<img src="./assets/moewe_logo.png" width="150px">
+
+<br>
+
 # **mœwe** | typescript client
 
-moewe is a open source, privacy preserving crash logging service that can be self-hosted.
+moewe _(german for seagull 🐣)_ is a open source, privacy preserving crash logging and config platform that can be self-hosted.
 
 ## motivation
 
@@ -20,7 +24,7 @@ find more information at [moewe.app](https://moewe.app)
   - compatible with React, Angular, Vue, Svelte and more
 - let users know about new app versions
 
-<img src="./assets/screenshots.png">
+<img src="./assets/screenshots.png" width="300px">
 
 ## usage
 
@@ -28,11 +32,11 @@ initialize the client within your Flutter applications `main.dart`
 
 ```ts
 // setup Moewe
-new moewe.Moewe({
+await new moewe.Moewe({
   host: "open.moewe.app",
   project: "projectId",
   app: "appId",
-});
+}).init();
 
 render(...)
 ```
@@ -51,6 +55,23 @@ showFeedbackPage(...)  // use package UI
 
 // get flag value from server
 moewe().config.flagString("fav_food");
+```
+
+### feature flags
+
+mœwe allows your client to access variables defined on the server. This makes it possible to:
+
+- let users know whether a new version of your application is available for them
+- toggle specific (maybe experimental) features on and off
+- do A/B testing
+
+you can access these flags with the following function.
+Make sure to await the moewe `init()` call before using feature flags. Otherwise all flags are `null`
+
+```
+moewe().config.flagString("abc");
+moewe().config.flagInt("def");
+moewe().config.flagBool("ghi");
 ```
 
 ### crash logging

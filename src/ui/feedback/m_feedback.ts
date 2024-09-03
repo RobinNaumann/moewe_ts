@@ -18,6 +18,7 @@ export interface FeedbackViewLabels {
   hintContact: string | null;
   submit: string;
   msgSent: string;
+  msgInvalid: string;
   msgError: string;
 }
 
@@ -31,6 +32,7 @@ export const defaultFeedbackLabels = {
   hintContact: "contact",
   submit: "submit",
   msgSent: "Feedback sent!\nThank you",
+  msgInvalid: "please fill out all fields",
   msgError: "could not send",
 };
 

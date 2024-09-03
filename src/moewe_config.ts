@@ -73,6 +73,7 @@ export class MoeweConfig {
     try {
       return (this._config?.config[key] ?? null) as any as T | null;
     } catch (e) {
+      console.log("[MOEWE] Could not get flag " + key);
       return null;
     }
   }

@@ -13,6 +13,13 @@ export interface MoeweParams {
   deviceModel?: string;
 }
 
+export interface UserFeedback {
+  title: string;
+  message: string;
+  type: string;
+  contact?: string;
+}
+
 /**
  * the entry point for moewe
  * @param host the host of the moewe server
@@ -64,16 +71,9 @@ export class Moewe {
     return Moewe._i;
   }
 
-  crashHandlerInit() {
-    console.log(
-      "[MOEWE] automatic crash handling for js/ts not implemented yet"
-    );
-  }
-
-  async init({ timeout = true }: { timeout?: boolean }): Promise<void> {
+  async init(c?: { timeout?: boolean }): Promise<void> {
     try {
-      await this.config.init({ timeout: timeout });
-      this.crashHandlerInit();
+      await this.config.init({ timeout: c?.timeout ?? false });
     } catch (e) {
       console.log("[MOEWE] error while running init");
     }
@@ -103,14 +103,11 @@ export class Moewe {
 
   /**
    * send a feedback event to the moewe server
-   * @param title the title of the feedback
-   * @param message the message of the feedback
-   * @param type the type of the feedback
-   * @param contact the contact information of the user
+   * @param fb the feedback to send
    */
-  feedback(title: string, message: string, type: string, contact?: string) {
-    const data = { title: title, message: message, contact: contact };
-    this._send("feedback", type, data);
+  async feedback(fb: UserFeedback): Promise<void> {
+    const data = { ...fb, type: undefined };
+    await this._send("feedback", fb.type, data);
   }
 
   /** @internal */

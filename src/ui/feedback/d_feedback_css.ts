@@ -124,9 +124,19 @@ export const feedbackCSS = `
 
 .moewe dialog {
   position: fixed;
-  top: 50vh;
-  left: 50vw;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  border: none;
+}
+
+.moewe .dialog_base {
   width:  min(95%, 30rem);
   max-height: 95vh;
   overflow-y: auto;

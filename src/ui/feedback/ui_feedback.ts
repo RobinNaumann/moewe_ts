@@ -1,3 +1,4 @@
+import { moewe } from "../../moewe";
 import { h, render } from "../plain_ui";
 import { feedbackCSS } from "./d_feedback_css";
 import {
@@ -62,99 +63,115 @@ ${feedbackCSS}`
         ),
         h(
           "dialog",
-          { open: true, class: "card column cross-stretch" },
+          { open: true },
           h(
             "div",
-            { class: "row cross-center main-space-between" },
-            h("span", { class: "b text-l" }, labels.title!),
-            h(
-              "button",
-              {
-                class: "close-btn",
-                onClick: () => close(),
-              },
-              "×"
-            )
-          ),
-          ["edit"].includes(s.phase) &&
+            { open: true, class: "dialog_base card column cross-stretch" },
             h(
               "div",
-              {
-                class: "column cross-stretch",
-              },
-
-              h("div", {}, labels.description!),
-              h("input", {
-                style: "width: 100%;",
-                type: "text",
-                placeholder: labels.hintTitle,
-                value: s.value.title,
-                onInput: (v: any) =>
-                  set({ ...s, value: { ...s.value, title: v } }),
-              }),
-              types.length > 0 &&
-                h(
-                  "select",
-                  {
-                    value: s.value.type,
-                    onInput: (v: any) =>
-                      set({ ...s, value: { ...s.value, type: v } }),
-                  },
-                  ...types.map((t) => h("option", { value: t.key }, t.name))
-                ),
-              h("textarea", {
-                rows: 4,
-                type: "text",
-                placeholder: labels.hintMessage,
-                value: s.value.message,
-                onInput: (v: any) => {
-                  console.log(s);
-                  set({ ...s, value: { ...s.value, message: v } });
-                },
-              }),
-
-              h("div", { style: "height: 1rem;" }),
-
-              labels.descriptionContact! &&
-                h("div", {}, labels.descriptionContact!),
-              labels.hintContact! &&
-                h("input", {
-                  style: `width: 100%;`,
-                  type: "text",
-                  placeholder: labels.hintContact,
-                  value: s.value.contact,
-                  onInput: (v: any) =>
-                    set({ ...s, value: { ...s.value, contact: v } }),
-                }),
+              { class: "row cross-center main-space-between" },
+              h("span", { class: "b text-l" }, labels.title!),
               h(
                 "button",
                 {
-                  class: "submit-btn",
-                  style: ` ${
-                    valid() ? "" : "filter: grayscale(1); opacity: 0.8;"
-                  } `,
-                  onClick: () => {
-                    console.log("submit");
-                    if (!valid()) return;
-                    set({ ...s, phase: "sent" });
-                  },
+                  class: "close-btn",
+                  onClick: () => close(),
                 },
-                "submit"
+                "×"
               )
             ),
-          ["sent", "error"].includes(s.phase) &&
-            h(
-              "div",
-              {
-                class: "column  cross-center",
-                style: "padding: 3rem; white-space: pre-wrap;",
-              },
+            ["edit"].includes(s.phase) &&
               h(
-                "span",
-                { class: "b text-l", style: " text-align: center;" },
-                s.phase === "sent" ? labels.msgSent! : labels.msgError!
+                "div",
+                {
+                  class: "column cross-stretch",
+                },
+
+                h("div", {}, labels.description!),
+                h("input", {
+                  style: "width: 100%;",
+                  type: "text",
+                  placeholder: labels.hintTitle,
+                  value: s.value.title,
+                  onInput: (v: any) =>
+                    set({ ...s, value: { ...s.value, title: v } }),
+                }),
+                types.length > 0 &&
+                  h(
+                    "select",
+                    {
+                      value: s.value.type,
+                      onInput: (v: any) =>
+                        set({ ...s, value: { ...s.value, type: v } }),
+                    },
+                    ...types.map((t) => h("option", { value: t.key }, t.name))
+                  ),
+                h("textarea", {
+                  rows: 4,
+                  type: "text",
+                  placeholder: labels.hintMessage,
+                  value: s.value.message,
+                  onInput: (v: any) => {
+                    console.log(s);
+                    set({ ...s, value: { ...s.value, message: v } });
+                  },
+                }),
+
+                h("div", { style: "height: 1rem;" }),
+
+                labels.descriptionContact! &&
+                  h("div", {}, labels.descriptionContact!),
+                labels.hintContact! &&
+                  h("input", {
+                    style: `width: 100%;`,
+                    type: "text",
+                    placeholder: labels.hintContact,
+                    value: s.value.contact,
+                    onInput: (v: any) =>
+                      set({ ...s, value: { ...s.value, contact: v } }),
+                  }),
+                h(
+                  "button",
+                  {
+                    class: "submit-btn",
+                    title: valid() ? "" : labels.msgInvalid!,
+                    style: ` ${
+                      valid() ? "" : "filter: grayscale(1); opacity: 0.8;"
+                    } `,
+                    onClick: async () => {
+                      console.log("submit");
+                      if (!valid()) return;
+                      try {
+                        await moewe().feedback({
+                          title: s.value.title,
+                          type: s.value.type,
+                          message: s.value.message,
+                          contact: s.value.contact,
+                        });
+                        set({ ...s, phase: "sent" });
+                      } catch (e) {
+                        set({ ...s, phase: "error" });
+                        return;
+                      }
+                    },
+                  },
+                  "submit"
+                )
+              ),
+            ["sent", "error"].includes(s.phase) &&
+              h(
+                "div",
+                {
+                  class: "column  cross-center",
+                  style: "padding: 3rem; white-space: pre-wrap;",
+                },
+                h(
+                  "span",
+                  { class: "b text-l", style: " text-align: center;" },
+                  s.phase === "sent" ? labels.msgSent! : labels.msgError!
+                )
               )
-            )
+          )
         )
       );
     }
