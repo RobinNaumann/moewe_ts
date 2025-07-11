@@ -8,7 +8,8 @@
   "types": "dist/moewe.d.ts",
   "scripts": {
     "build": "bun build --target=node ./src/moewe.ts --outfile=dist/moewe.js && bun run build:declaration",
-    "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json"
+    "build:declaration": "tsc --emitDeclarationOnly --project tsconfig.types.json",
+    "deploy": "bun run build && npm publish"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -21,7 +22,7 @@
     "crash-reporting",
     "logging"
   ],
-  "version": "0.2.5",
+  "version": "0.2.7",
   "author": "Robin Naumann",
   "license": "MIT",
   "files": [

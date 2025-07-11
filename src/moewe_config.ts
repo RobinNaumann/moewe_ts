@@ -64,7 +64,7 @@ export class MoeweConfig {
     } catch (e) {
       console.log(
         "[MOEWE] Could not fetch app config. \n" +
-          "if this is a timeout, you can disable it by calling `init(timeout: false)`"
+          "if this is a timeout, you can disable it by calling `init({timeout: false})`"
       );
     }
   }

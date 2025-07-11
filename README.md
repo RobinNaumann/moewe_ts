@@ -18,17 +18,17 @@ find more information at [moewe.app](https://moewe.app)
 
 - crash logging
 - event logging
-- user feedback collection
 - live config via feature flags
 - includes simple UI components for simple integration
   - compatible with React, Angular, Vue, Svelte and more
 - let users know about new app versions
+- user feedback collection
 
 <img src="./assets/screenshots.png" width="300px">
 
 ## usage
 
-initialize the client within your Flutter applications `main.dart`
+initialize the client within your web applications entry file (like `index.tsx`)
 
 ```ts
 // setup Moewe

@@ -36,7 +36,14 @@ export class Moewe {
   public readonly config: MoeweConfig = new MoeweConfig();
   public readonly log: MoeweLogger = new MoeweLogger();
   public readonly events: MoeweEvents = new MoeweEvents();
-  public readonly ui = {
+  /**
+   * UI components that allow you to interact with users.
+   * they work directly on the html object, so they are
+   * framework indipendent
+   */
+  public readonly ui: {
+    showFeedbackDialog: typeof showFeedbackDialog;
+  } = {
     showFeedbackDialog,
   };
 
@@ -77,7 +84,7 @@ export class Moewe {
 
   async init(c?: { timeout?: boolean }): Promise<void> {
     try {
-      await this.config.init({ timeout: c?.timeout ?? false });
+      await this.config.init({ timeout: c?.timeout ?? true });
     } catch (e) {
       console.log("[MOEWE] error while running init");
     }

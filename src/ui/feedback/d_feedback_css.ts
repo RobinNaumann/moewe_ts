@@ -123,6 +123,8 @@ export const feedbackCSS = `
 }
 
 .moewe dialog {
+  z-index: 2001;
+
   position: fixed;
   top: 0;
   left: 0;
